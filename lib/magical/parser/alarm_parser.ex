@@ -26,8 +26,16 @@ defmodule Magical.Parser.AlarmParser do
     Map.put(alarm, :action, TextParser.parse(action))
   end
 
+  defp parse_alarm({"attendee", attendee, _args}, alarm) do
+    Map.put(alarm, :attendee, TextParser.parse(attendee))
+  end
+
   defp parse_alarm({"description", description, _args}, alarm) do
     Map.put(alarm, :action, TextParser.parse(description))
+  end
+
+  defp parse_alarm({"summary", summary, _args}, alarm) do
+    Map.put(alarm, :summary, TextParser.parse(summary))
   end
 
   defp parse_alarm({"trigger", trigger, args}, alarm) do
@@ -49,5 +57,4 @@ defmodule Magical.Parser.AlarmParser do
   defp parse_alarm({"end", "VALARM", _args}, alarm) do
     alarm
   end
-
 end
